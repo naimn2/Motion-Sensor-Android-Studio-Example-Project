@@ -1,0 +1,2 @@
+include ':AclGyroApp'
+rootProject.name = "Acl Gyro"

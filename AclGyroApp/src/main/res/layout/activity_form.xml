@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.FormActivity"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="@dimen/margin">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nama Lengkap"
+        android:layout_margin="@dimen/margin"
+        android:textColor="#4E4E4E"
+        android:textStyle="bold"
+        android:textSize="20sp"/>
+
+    <EditText
+        android:id="@+id/et_activityForm_namaLengkap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin"
+        android:inputType="textPersonName"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Umur"
+        android:textColor="#4E4E4E"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:layout_margin="@dimen/margin"/>
+
+    <EditText
+        android:id="@+id/et_activityForm_umur"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin"
+        android:inputType="number"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Jenis Kelamin"
+        android:textColor="#4E4E4E"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:layout_margin="@dimen/margin"/>
+
+    <Spinner
+        android:id="@+id/spinner_activityForm_jenisKelamin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin"
+        android:spinnerMode="dropdown"/>
+
+    <Button
+        android:id="@+id/btn_activityForm_lanjut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lanjut"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        android:padding="@dimen/margin"/>
+
+</LinearLayout>

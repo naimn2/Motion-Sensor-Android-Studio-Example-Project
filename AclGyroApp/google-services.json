@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "796409555208",
+    "project_id": "acl-gyro",
+    "storage_bucket": "acl-gyro.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:796409555208:android:6d16f204410c7089a9a4bd",
+        "android_client_info": {
+          "package_name": "com.example.aclgyro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "796409555208-r5b0rcj861ebh11mpd9g54c8rkpuec8j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAeKQRLYdT5et49dRyVF5s1X1hRa_CjB0Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "796409555208-r5b0rcj861ebh11mpd9g54c8rkpuec8j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
