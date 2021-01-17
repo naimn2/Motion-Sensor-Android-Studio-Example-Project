@@ -1,6 +1,7 @@
 package com.example.aclgyro.activity
 
 import android.content.Context
+import android.content.DialogInterface
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -10,7 +11,10 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.example.aclgyro.CommonUser
 import com.example.aclgyro.R
 import com.example.aclgyro.model.Coordinate
@@ -32,10 +36,11 @@ class AclActivity : AppCompatActivity(), SensorEventListener, ValueEventListener
     private var time2update : Boolean = true
     private var startTime: Long = 0
     private var endTime: Long = 0
+    private var isRecording: Boolean = false
+    private var label: Int = 0
 
     private val SENSITIVITY : Float = 0.8f // 0-1
     private val DELAY : Long = 100 // ms
-    private var isRecording: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,6 +76,7 @@ class AclActivity : AppCompatActivity(), SensorEventListener, ValueEventListener
         startTime = Date().time
         btn_acl_record.text = "Stop"
         btn_acl_record.setBackgroundResource(R.color.merah_pucat)
+        Toast.makeText(this, "Recording Started", Toast.LENGTH_SHORT).show()
     }
 
     private fun postRecording(){
@@ -78,8 +84,28 @@ class AclActivity : AppCompatActivity(), SensorEventListener, ValueEventListener
         endTime = Date().time
         btn_acl_record.text = "Record"
         btn_acl_record.setBackgroundResource(R.color.biru_pucat)
-        updateDb()
-        Toast.makeText(this, "Saving record to db ...", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Recording Stopped", Toast.LENGTH_SHORT).show()
+
+        showPopupClassifier()
+    }
+
+    private fun showPopupClassifier(){
+        val classifierView: View = layoutInflater.inflate(R.layout.dialog_classifier_sensor, null, false)
+        val classSpinner: Spinner = classifierView.findViewById(R.id.spinner_dialogClassifierSensor)
+
+        val classesArrayAdapter: ArrayAdapter<String> = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, DataSensor.JENIS_JENIS_AKTIVITAS)
+        classSpinner.adapter = classesArrayAdapter
+
+        AlertDialog.Builder(this)
+                .setView(classifierView)
+                .setTitle("Set Label")
+                .setPositiveButton("Submit", object: DialogInterface.OnClickListener {
+                    override fun onClick(p0: DialogInterface?, p1: Int) {
+                        label = classSpinner.selectedItemPosition
+                        updateDb()
+                    }
+                })
+                .show()
     }
 
     override fun onStop() {
@@ -107,7 +133,10 @@ class AclActivity : AppCompatActivity(), SensorEventListener, ValueEventListener
                         time2update = true
                     }, DELAY)
 
-                    coordinateList.add(Coordinate(p0.values[0], p0.values[1], p0.values[2]))
+                    if (isRecording) {
+                        coordinateList.add(Coordinate(p0.values[0], p0.values[1], p0.values[2]))
+                        Log.d(TAG, "coordinates length: "+coordinateList.size)
+                    }
                 }
             }
         }
@@ -130,10 +159,15 @@ class AclActivity : AppCompatActivity(), SensorEventListener, ValueEventListener
             }
         }
 
-        val newDataSensor: DataSensor = DataSensor(JENIS_SENSOR, startTime, endTime, coordinateList, true)
+        val newDataSensor = DataSensor()
+        newDataSensor.jenisSensor = JENIS_SENSOR
+        newDataSensor.startTime = startTime
+        newDataSensor.endTime = endTime
+        newDataSensor.aclCoords = coordinateList
+        newDataSensor.label = label
         dataSensorList.add(newDataSensor)
         snapshot.ref.setValue(dataSensorList)
-        Toast.makeText(this, "record just saved", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Record just saved", Toast.LENGTH_SHORT).show()
     }
 
     override fun onCancelled(error: DatabaseError) {

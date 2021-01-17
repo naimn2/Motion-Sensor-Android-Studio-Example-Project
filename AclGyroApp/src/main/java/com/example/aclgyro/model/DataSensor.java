@@ -3,62 +3,61 @@ package com.example.aclgyro.model;
 import java.util.ArrayList;
 
 public class DataSensor {
-    public static final String DATABASE_REFERENCE = "dataSensors";
+	public static final String DATABASE_REFERENCE = "dataSensors";
+	public static final String[] JENIS_JENIS_AKTIVITAS = {"NORMAL", "JATUH"};
 
-    private int jenisSensor; // 0 = Acl, 1 = Gyro
-    private long startTime;
-    private long endTime;
-    private ArrayList<Coordinate> coordinates;
-    private boolean isFallen;
+	private int jenisSensor; // 0 = Acl, 1 = Gyro, 2 = both
+	private long startTime;
+	private long endTime;
+	private ArrayList<Coordinate> aclCoords;
+	private ArrayList<Coordinate> gyroCoords;
+	private int label; // 0 = Normal, 1 = Jatuh
 
-    public DataSensor() {
-    }
+	public int getLabel() {
+		return label;
+	}
 
-    public DataSensor(int jenisSensor, long startTime, long endTime, ArrayList<Coordinate> coordinates, boolean isFallen) {
-        this.jenisSensor = jenisSensor;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.coordinates = coordinates;
-        this.isFallen = isFallen;
-    }
+	public void setLabel(int label) {
+		this.label = label;
+	}
 
-    public int getJenisSensor() {
-        return jenisSensor;
-    }
+	public void setJenisSensor(int jenisSensor) {
+		this.jenisSensor = jenisSensor;
+	}
 
-    public void setJenisSensor(int jenisSensor) {
-        this.jenisSensor = jenisSensor;
-    }
+	public void setStartTime(long startTime) {
+		this.startTime = startTime;
+	}
 
-    public long getStartTime() {
-        return startTime;
-    }
+	public void setEndTime(long endTime) {
+		this.endTime = endTime;
+	}
 
-    public void setStartTime(long startTime) {
-        this.startTime = startTime;
-    }
+	public void setAclCoords(ArrayList<Coordinate> aclCoords) {
+		this.aclCoords = aclCoords;
+	}
 
-    public long getendTime() {
-        return endTime;
-    }
+	public void setGyroCoords(ArrayList<Coordinate> gyroCoords) {
+		this.gyroCoords = gyroCoords;
+	}
 
-    public void setendTime(long endTime) {
-        this.endTime = endTime;
-    }
+	public ArrayList<Coordinate> getAclCoords(){
+		return aclCoords;
+	}
 
-    public ArrayList<Coordinate> getCoordinates() {
-        return coordinates;
-    }
+	public int getJenisSensor(){
+		return jenisSensor;
+	}
 
-    public void setCoordinate(ArrayList<Coordinate> coordinates) {
-        this.coordinates = coordinates;
-    }
+	public long getStartTime(){
+		return startTime;
+	}
 
-    public boolean isFallen() {
-        return isFallen;
-    }
+	public long getEndTime(){
+		return endTime;
+	}
 
-    public void setFallen(boolean fallen) {
-        isFallen = fallen;
-    }
+	public ArrayList<Coordinate> getGyroCoords(){
+		return gyroCoords;
+	}
 }

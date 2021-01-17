@@ -14,6 +14,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         btn_aclSensor.setOnClickListener(this)
         btn_gyroSensor.setOnClickListener(this)
+        btn_aclGyroSensor.setOnClickListener(this)
     }
 
     override fun onClick(p0: View?) {
@@ -22,6 +23,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             when (p0.id){
                 R.id.btn_aclSensor -> mIntent = Intent(applicationContext, AclActivity::class.java)
                 R.id.btn_gyroSensor -> mIntent = Intent(applicationContext, GyroActivity::class.java)
+                R.id.btn_aclGyroSensor -> mIntent = Intent(applicationContext, AclGyroActivity::class.java)
             }
             if (mIntent != null){
                 startActivity(mIntent)
